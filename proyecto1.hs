@@ -139,19 +139,19 @@ balance a b = if a>=b then 0 else a
 cambio :: String -> String -> Int -> String
 cambio [] _ _ = []
 cambio x y b = let c = balance b (length y) in
-	if head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_' then  ([y !! c]++cambio (tail x) y (c+1)) 
+	if head x /= '0'  && head x /= '1' && head x /= '2' && head x /= '3' && head x /= '4' && head x /= '5' && head x /= '6' && head x /= '7' && head x /= '8' && head x /= '9' && head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_' then ([y !! c]++cambio (tail x) y (c+1)) 
 	else ([head x]++cambio (tail x) y (c))
 
 cifradot :: String -> String -> Int -> String
 cifradot [] _ _ = []
 cifradot x y b = let c = balance b (length y); abc = ["abcdefghijklmnopqrstuvwxyz","bcdefghijklmnopqrstuvwxyza","cdefghijklmnopqrstuvwxyzab","defghijklmnopqrstuvwxyzabc","efghijklmnopqrstuvwxyzabcd","fghijklmnopqrstuvwxyzabcde","ghijklmnopqrstuvwxyzabcdef","hijklmnopqrstuvwxyzabcdefg","ijklmnopqrstuvwxyzabcdefgh","jklmnopqrstuvwxyzabcdefghi","klmnopqrstuvwxyzabcdefghij","lmnopqrstuvwxyzabcdefghijk","mnopqrstuvwxyzabcdefghijkl","nopqrstuvwxyzabcdefghijklm","opqrstuvwxyzabcdefghijklmn","pqrstuvwxyzabcdefghijklmno","qrstuvxyzabcdefghijklmnop","rstuvwxyzabcdefghijklmnopq","stuvwxyzabcdefghijklmnopqr","tuvwxyzabcdefghijklmnopqrs","uvwxyzabcdefghijklmnopqrst","vwxyzabcdefghijklmnopqrstu","wxyzabcdefghijklmnoprstuv","xyzabcdefghijklmnopqrstuvw","yzabcdefghijklmnopqrstuvwx", "zabcdefghijklmnopqrstuvwxy"] in
-	if head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_'  then  [(abc!! conversion(head x))!! conversion (y!!c)]++cifradot (tail x) y (c+1) 
+	if head x /= '0'  && head x /= '1' && head x /= '2' && head x /= '3' && head x /= '4' && head x /= '5' && head x /= '6' && head x /= '7' && head x /= '8' && head x /= '9' && head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_'  then  [(abc!! conversion(head x))!! conversion (y!!c)]++cifradot (tail x) y (c+1) 
 	else  ([head x]++cifradot (tail x) y (c+1) ) 
 
 veginereCod :: String -> String -> String 
 veginereCod [] []= []
 veginereCod [] _ = []
-veginereCod _ [] = []
+veginereCod x [] = x
 veginereCod x y = cifradot x (cambio x y 0) 0 
 -- Descifrado Veginere
 
@@ -163,12 +163,16 @@ busqueda a b c = let abc= ["abcdefghijklmnopqrstuvwxyz","bcdefghijklmnopqrstuvwx
 descifradot :: String -> String -> Int -> String
 descifradot [] _ _ = []
 descifradot x y b = let c=busqueda (conversion (head x)) (head y) 0; abc="abcdefghijklmnopqrstuvwxyz" in 
-	if head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_' then ([abc!!c]++descifradot (tail x) (tail y) (c+1))
+	if head x /= '0'  && head x /= '1' && head x /= '2' && head x /= '3' && head x /= '4' && head x /= '5' && head x /= '6' && head x /= '7' && head x /= '8' && head x /= '9' && head x /= ' ' && head x /= '=' && head x /= '+' && head x /= ')' && head x /= '(' && head x /= '!' && head x /= '$' && head x /= '^' && head x /= '%' && head x /= '*' && head x /= '#' && head x /= '@' && head x /= '&' && head x /= '/' && head x /= '-' && head x /= '_' then ([abc!!c]++descifradot (tail x) (tail y) (c+1))
 	else  ([head x]++descifradot (tail x) (tail y) (c+1) ) 
 
 --Llama principal
 veginereDes :: String -> String -> String 
 veginereDes [] []= []
 veginereDes [] _ = []
-veginereDes _ [] = []
+veginereDes x [] = x
 veginereDes x y = descifradot x y 0
+
+
+
+--Aaron Morillo y Diego Sanchez 
